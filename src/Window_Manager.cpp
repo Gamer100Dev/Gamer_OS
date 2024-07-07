@@ -10,6 +10,7 @@
 #include <chrono>
 #include <QDockWidget>
 #include <QScreen>
+#include <cstdlib>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 #include <X11/Xcursor/Xcursor.h>
@@ -153,7 +154,7 @@ void DrawDE(Display* display) {
     QApplication app(argc, argv);
 
     QMainWindow mainWindow;
-    mainWindow.setGeometry(0, 0, 1029, 496);
+    mainWindow.setGeometry(0, 0, 1920, 496);
 
 
     QPushButton* pushButton = new QPushButton("Search", &mainWindow);
