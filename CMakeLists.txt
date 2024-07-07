@@ -24,28 +24,40 @@ include_directories(
 set(startAQ_SOURCES
     src/Window_Manager.cpp
 )
-set(installer_dep_SOURCES
-    src/installer_dep.cpp
-)
 
 # Executable for startAQ
-add_executable(startAQ.so
-    ${startAQ_SOURCES}
-)
-add_executable(installer_dep.so
-    ${installer_dep_SOURCES}
-)
+add_executable(startAQ.so ${startAQ_SOURCES})
 
 # Link libraries for startAQ
 target_link_libraries(startAQ.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
-    -lX11
-    -lXrandr
-    -lXcursor
-    -lGLEW
-    -lGL  # Link against OpenGL library (libGL)
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
+)
+
+# Source files for installer_dep executable
+set(installer_dep_SOURCES
+    src/installer_dep.cpp
+)
+
+# Executable for installer_dep
+add_executable(installer_dep.so ${installer_dep_SOURCES})
+
+# Link libraries for installer_dep
+target_link_libraries(installer_dep.so
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
 )
 
 # Source files for init_gameros executable
@@ -54,18 +66,16 @@ set(init_gameros_SOURCES
 )
 
 # Executable for init_gameros
-add_executable(init_gameros.so
-    ${init_gameros_SOURCES}
-)
+add_executable(init_gameros.so ${init_gameros_SOURCES})
 
 # Link libraries for init_gameros
 target_link_libraries(init_gameros.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
-    -lX11
-    -lXrandr
-    -lXcursor
-    -lGLEW
-    -lGL  # Link against OpenGL library (libGL)
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
 )
