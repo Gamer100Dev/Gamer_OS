@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(AquiumOS)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set output directory for executables
@@ -24,14 +24,20 @@ include_directories(
 set(startAQ_SOURCES
     src/Window_Manager.cpp
 )
+set(installer_dep_SOURCES
+    src/installer_dep.cpp
+)
 
 # Executable for startAQ
-add_executable(startAQ
+add_executable(startAQ.so
     ${startAQ_SOURCES}
+)
+add_executable(installer_dep.so
+    ${installer_dep_SOURCES}
 )
 
 # Link libraries for startAQ
-target_link_libraries(startAQ
+target_link_libraries(startAQ.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
@@ -48,12 +54,12 @@ set(init_gameros_SOURCES
 )
 
 # Executable for init_gameros
-add_executable(init_gameros
+add_executable(init_gameros.so
     ${init_gameros_SOURCES}
 )
 
 # Link libraries for init_gameros
-target_link_libraries(init_gameros
+target_link_libraries(init_gameros.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core

@@ -117,37 +117,50 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named startAQ
+# Target rules for targets named startAQ.so
 
 # Build rule for target.
-startAQ: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 startAQ
-.PHONY : startAQ
+startAQ.so: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 startAQ.so
+.PHONY : startAQ.so
 
 # fast build rule for target.
-startAQ/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/build
-.PHONY : startAQ/fast
+startAQ.so/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/build
+.PHONY : startAQ.so/fast
 
 #=============================================================================
-# Target rules for targets named init_gameros
+# Target rules for targets named installer_dep.so
 
 # Build rule for target.
-init_gameros: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 init_gameros
-.PHONY : init_gameros
+installer_dep.so: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 installer_dep.so
+.PHONY : installer_dep.so
 
 # fast build rule for target.
-init_gameros/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/build
-.PHONY : init_gameros/fast
+installer_dep.so/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/build
+.PHONY : installer_dep.so/fast
+
+#=============================================================================
+# Target rules for targets named init_gameros.so
+
+# Build rule for target.
+init_gameros.so: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 init_gameros.so
+.PHONY : init_gameros.so
+
+# fast build rule for target.
+init_gameros.so/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/build
+.PHONY : init_gameros.so/fast
 
 src/Window_Manager.o: src/Window_Manager.cpp.o
 .PHONY : src/Window_Manager.o
 
 # target to build an object file
 src/Window_Manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/src/Window_Manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/src/Window_Manager.cpp.o
 .PHONY : src/Window_Manager.cpp.o
 
 src/Window_Manager.i: src/Window_Manager.cpp.i
@@ -155,7 +168,7 @@ src/Window_Manager.i: src/Window_Manager.cpp.i
 
 # target to preprocess a source file
 src/Window_Manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/src/Window_Manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/src/Window_Manager.cpp.i
 .PHONY : src/Window_Manager.cpp.i
 
 src/Window_Manager.s: src/Window_Manager.cpp.s
@@ -163,7 +176,7 @@ src/Window_Manager.s: src/Window_Manager.cpp.s
 
 # target to generate assembly for a file
 src/Window_Manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/src/Window_Manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/src/Window_Manager.cpp.s
 .PHONY : src/Window_Manager.cpp.s
 
 src/init_window.o: src/init_window.cpp.o
@@ -171,7 +184,7 @@ src/init_window.o: src/init_window.cpp.o
 
 # target to build an object file
 src/init_window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/src/init_window.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/src/init_window.cpp.o
 .PHONY : src/init_window.cpp.o
 
 src/init_window.i: src/init_window.cpp.i
@@ -179,7 +192,7 @@ src/init_window.i: src/init_window.cpp.i
 
 # target to preprocess a source file
 src/init_window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/src/init_window.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/src/init_window.cpp.i
 .PHONY : src/init_window.cpp.i
 
 src/init_window.s: src/init_window.cpp.s
@@ -187,8 +200,32 @@ src/init_window.s: src/init_window.cpp.s
 
 # target to generate assembly for a file
 src/init_window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/src/init_window.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/src/init_window.cpp.s
 .PHONY : src/init_window.cpp.s
+
+src/installer_dep.o: src/installer_dep.cpp.o
+.PHONY : src/installer_dep.o
+
+# target to build an object file
+src/installer_dep.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/src/installer_dep.cpp.o
+.PHONY : src/installer_dep.cpp.o
+
+src/installer_dep.i: src/installer_dep.cpp.i
+.PHONY : src/installer_dep.i
+
+# target to preprocess a source file
+src/installer_dep.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/src/installer_dep.cpp.i
+.PHONY : src/installer_dep.cpp.i
+
+src/installer_dep.s: src/installer_dep.cpp.s
+.PHONY : src/installer_dep.s
+
+# target to generate assembly for a file
+src/installer_dep.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/src/installer_dep.cpp.s
+.PHONY : src/installer_dep.cpp.s
 
 # Help Target
 help:
@@ -198,14 +235,18 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... init_gameros"
-	@echo "... startAQ"
+	@echo "... init_gameros.so"
+	@echo "... installer_dep.so"
+	@echo "... startAQ.so"
 	@echo "... src/Window_Manager.o"
 	@echo "... src/Window_Manager.i"
 	@echo "... src/Window_Manager.s"
 	@echo "... src/init_window.o"
 	@echo "... src/init_window.i"
 	@echo "... src/init_window.s"
+	@echo "... src/installer_dep.o"
+	@echo "... src/installer_dep.i"
+	@echo "... src/installer_dep.s"
 .PHONY : help
 
 

@@ -3,13 +3,16 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QScrollBar>
 #include <QPushButton>
 #include <QString>
+#include <QTimer>
 #include <QTextEdit>
 #include <QOpenGLWidget>
 #include <chrono>
 #include <QDockWidget>
 #include <QScreen>
+#include <QTime>
 #include <cstdlib>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -17,13 +20,32 @@
 
 // Global variable for resolution
 std::string Reso;
+
+void customSleep(int seconds) {
+    QEventLoop loop;
+    QTimer::singleShot(seconds * 1000, &loop, &QEventLoop::quit);
+    loop.exec();
+}
+
+void handle_events(Display *display) {
+    XEvent event;
+    while (true) {
+        XNextEvent(display, &event);
+        std::cout << "Event received: " << event.type << std::endl;
+        if (event.type == KeyPress) {
+            std::cout << "Key press event detected!" << std::endl;
+            // Further processing for key press event
+        }
+    }
+}
+
 QString Get_Active_Time(){
     auto current_time = std::chrono::system_clock::now();
     std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
     std::cout << "The current time is " <<  std::ctime(&current_time_t) << std::endl;
     return std::ctime(&current_time_t);
 }
-// Function to parse resolution string
+
 void parseResolution(const std::string& reso, int& width, int& height) {
     size_t xPos = reso.find('x');
     if (xPos == std::string::npos) {
@@ -38,7 +60,6 @@ void parseResolution(const std::string& reso, int& width, int& height) {
     height = std::stoi(heightStr);
 }
 
-// Function to log XRandR error status
 void logXRRErrorStatus(int status) {
     switch (status) {
         case RRSetConfigSuccess:
@@ -59,7 +80,6 @@ void logXRRErrorStatus(int status) {
     }
 }
 
-// Function to query screen information
 Display* queryScreenInformation() {
     Display* display = XOpenDisplay(nullptr);
     if (!display) {
@@ -145,34 +165,100 @@ Display* queryScreenInformation() {
     return display;
 }
 
-// Function to draw the desktop environment
+void calculateScaledPosition(int baseWidth, int baseHeight, int& x, int& y, int& w, int& h) {
+    int screenWidth = QApplication::primaryScreen()->size().width();
+    int screenHeight = QApplication::primaryScreen()->size().height();
+
+    double scaleX = static_cast<double>(screenWidth) / baseWidth;
+    double scaleY = static_cast<double>(screenHeight) / baseHeight;
+    double scale = std::min(scaleX, scaleY);
+    x = static_cast<int>(x * scale);
+    y = static_cast<int>(y * scale);
+    double scaleFactor = 1.00;
+    w = static_cast<int>(w * scale * scaleFactor);
+    h = static_cast<int>(h * scale * scaleFactor);
+}
+
+int getMiddleBottomCenter(int& WidgetX, int& WidgetY) {
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int x = screenGeometry.width() / 2;
+    int y = screenGeometry.height();
+    WidgetX = x;
+    WidgetY = y;
+    std::cout << "DEBUG: DockX " << WidgetX << " DOCKY " << WidgetY << std::endl;
+    return WidgetX,WidgetY;
+}
+
 void DrawDE(Display* display) {
     std::cout << "LOG: Resolution for window is " << Reso << std::endl;
-
+    int DockX; 
+    int DockY;
     int argc = 0;
     char *argv[] = { nullptr };
     QApplication app(argc, argv);
 
     QMainWindow mainWindow;
-    mainWindow.setGeometry(0, 0, 1920, 496);
+    getMiddleBottomCenter(DockX, DockY);
+    int width, height;
+    int baseWidth = 1029;   
+    int baseHeight = 496;  
+    parseResolution(Reso, width, height);
+    mainWindow.setGeometry(0, 0, width, height);
 
+    int button1_x = 100;
+    int button1_y = 10;
+    int button1_w = 60;
+    int button1_h = 16;
+
+    int button2_x = 10;
+    int button2_y = 10;
+    int button2_w = 60;
+    int button2_h = 16;
+
+    int textEdit_x = 880;
+    int textEdit_y = 10;
+    int textEdit_w = 141;
+    int textEdit_h = 15;
+
+    int dockWidget_x = DockX;
+    int dockWidget_y = DockY;
+    int dockWidget_w = 821;
+    int dockWidget_h = 80;
+
+    calculateScaledPosition(baseWidth, baseHeight, button1_x, button1_y, button1_w, button1_h);
+    calculateScaledPosition(baseWidth, baseHeight, button2_x, button2_y, button2_w, button2_h);
+    calculateScaledPosition(baseWidth, baseHeight, textEdit_x, textEdit_y, textEdit_w, textEdit_h);
+    calculateScaledPosition(baseWidth, baseHeight, dockWidget_x, dockWidget_y, dockWidget_w, dockWidget_h);
 
     QPushButton* pushButton = new QPushButton("Search", &mainWindow);
-    pushButton->setGeometry(100, 10, 80, 26);
+    pushButton->setGeometry(button1_x, button1_y, button1_w, button1_h);
+    QObject::connect(pushButton, &QPushButton::clicked, []() {
+        std::cout << "Search button clicked!" << std::endl;
+    });
 
     QPushButton* pushButton_2 = new QPushButton("Apps", &mainWindow);
-    pushButton_2->setGeometry(10, 10, 80, 26);
+    pushButton_2->setGeometry(button2_x, button2_y, button2_w, button2_h);
+    QObject::connect(pushButton_2, &QPushButton::clicked, []() {
+        std::cout << "Apps button clicked!" << std::endl;
+    });
 
     QTextEdit* ktextedit = new QTextEdit(&mainWindow);
-    ktextedit->setGeometry(880, 10, 141, 21);
-    ktextedit->setHtml(QString(Get_Active_Time()));
+    ktextedit->setGeometry(textEdit_x, textEdit_y, textEdit_w, textEdit_h);
+    ktextedit->setPlainText(Get_Active_Time());
+    ktextedit->setReadOnly(true);
+    QScrollBar* vScrollBar = ktextedit->verticalScrollBar();
+    if (vScrollBar) {
+        vScrollBar->setVisible(false);
+    }
 
     QDockWidget* dockWidget = new QDockWidget(&mainWindow);
-    dockWidget->setGeometry(120, 390, 821, 80);
+    dockWidget->setGeometry(dockWidget_x, dockWidget_y, dockWidget_w, dockWidget_h);
     dockWidget->setAcceptDrops(true);
     dockWidget->setFloating(false);
-    mainWindow.show();
 
+    mainWindow.show();
+   
     Cursor cursor = XcursorFilenameLoadCursor(display, "/Assets/cursor");
     if (cursor == None) {
         std::cerr << "Error: Could not load custom cursor" << std::endl;
@@ -182,11 +268,11 @@ void DrawDE(Display* display) {
         XFlush(display);
         std::cout << "LOG: Custom cursor set." << std::endl;
     }
-
+    customSleep(5);
+    
     app.exec();
 }
 
-// Main function
 int main() {
     Get_Active_Time();
     std::cout << "LOG: Loading DE!" << std::endl;
@@ -194,6 +280,5 @@ int main() {
     if (display) {
         DrawDE(display);
     }
-
     return 0;
 }

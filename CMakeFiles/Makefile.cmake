@@ -100,6 +100,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/startAQ.dir/DependInfo.cmake"
-  "CMakeFiles/init_gameros.dir/DependInfo.cmake"
+  "CMakeFiles/startAQ.so.dir/DependInfo.cmake"
+  "CMakeFiles/installer_dep.so.dir/DependInfo.cmake"
+  "CMakeFiles/init_gameros.so.dir/DependInfo.cmake"
   )

@@ -63,8 +63,9 @@ CMAKE_BINARY_DIR = /home/gamer/Desktop/AquiumOS
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/startAQ.dir/all
-all: CMakeFiles/init_gameros.dir/all
+all: CMakeFiles/startAQ.so.dir/all
+all: CMakeFiles/installer_dep.so.dir/all
+all: CMakeFiles/init_gameros.so.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,61 +73,88 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/startAQ.dir/clean
-clean: CMakeFiles/init_gameros.dir/clean
+clean: CMakeFiles/startAQ.so.dir/clean
+clean: CMakeFiles/installer_dep.so.dir/clean
+clean: CMakeFiles/init_gameros.so.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/startAQ.dir
+# Target rules for target CMakeFiles/startAQ.so.dir
 
 # All Build rule for target.
-CMakeFiles/startAQ.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gamer/Desktop/AquiumOS/CMakeFiles --progress-num=3,4 "Built target startAQ"
-.PHONY : CMakeFiles/startAQ.dir/all
+CMakeFiles/startAQ.so.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gamer/Desktop/AquiumOS/CMakeFiles --progress-num=5,6 "Built target startAQ.so"
+.PHONY : CMakeFiles/startAQ.so.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/startAQ.dir/rule: cmake_check_build_system
+CMakeFiles/startAQ.so.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gamer/Desktop/AquiumOS/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/startAQ.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/startAQ.so.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gamer/Desktop/AquiumOS/CMakeFiles 0
-.PHONY : CMakeFiles/startAQ.dir/rule
+.PHONY : CMakeFiles/startAQ.so.dir/rule
 
 # Convenience name for target.
-startAQ: CMakeFiles/startAQ.dir/rule
-.PHONY : startAQ
+startAQ.so: CMakeFiles/startAQ.so.dir/rule
+.PHONY : startAQ.so
 
 # clean rule for target.
-CMakeFiles/startAQ.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.dir/build.make CMakeFiles/startAQ.dir/clean
-.PHONY : CMakeFiles/startAQ.dir/clean
+CMakeFiles/startAQ.so.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/startAQ.so.dir/build.make CMakeFiles/startAQ.so.dir/clean
+.PHONY : CMakeFiles/startAQ.so.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/init_gameros.dir
+# Target rules for target CMakeFiles/installer_dep.so.dir
 
 # All Build rule for target.
-CMakeFiles/init_gameros.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gamer/Desktop/AquiumOS/CMakeFiles --progress-num=1,2 "Built target init_gameros"
-.PHONY : CMakeFiles/init_gameros.dir/all
+CMakeFiles/installer_dep.so.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gamer/Desktop/AquiumOS/CMakeFiles --progress-num=3,4 "Built target installer_dep.so"
+.PHONY : CMakeFiles/installer_dep.so.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/init_gameros.dir/rule: cmake_check_build_system
+CMakeFiles/installer_dep.so.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gamer/Desktop/AquiumOS/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/init_gameros.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/installer_dep.so.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gamer/Desktop/AquiumOS/CMakeFiles 0
-.PHONY : CMakeFiles/init_gameros.dir/rule
+.PHONY : CMakeFiles/installer_dep.so.dir/rule
 
 # Convenience name for target.
-init_gameros: CMakeFiles/init_gameros.dir/rule
-.PHONY : init_gameros
+installer_dep.so: CMakeFiles/installer_dep.so.dir/rule
+.PHONY : installer_dep.so
 
 # clean rule for target.
-CMakeFiles/init_gameros.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.dir/build.make CMakeFiles/init_gameros.dir/clean
-.PHONY : CMakeFiles/init_gameros.dir/clean
+CMakeFiles/installer_dep.so.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/clean
+.PHONY : CMakeFiles/installer_dep.so.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/init_gameros.so.dir
+
+# All Build rule for target.
+CMakeFiles/init_gameros.so.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/gamer/Desktop/AquiumOS/CMakeFiles --progress-num=1,2 "Built target init_gameros.so"
+.PHONY : CMakeFiles/init_gameros.so.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/init_gameros.so.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gamer/Desktop/AquiumOS/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/init_gameros.so.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gamer/Desktop/AquiumOS/CMakeFiles 0
+.PHONY : CMakeFiles/init_gameros.so.dir/rule
+
+# Convenience name for target.
+init_gameros.so: CMakeFiles/init_gameros.so.dir/rule
+.PHONY : init_gameros.so
+
+# clean rule for target.
+CMakeFiles/init_gameros.so.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/clean
+.PHONY : CMakeFiles/init_gameros.so.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

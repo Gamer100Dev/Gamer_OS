@@ -1,4 +1,5 @@
-/home/gamer/Desktop/AquiumOS/CMakeFiles/startAQ.dir
-/home/gamer/Desktop/AquiumOS/CMakeFiles/init_gameros.dir
+/home/gamer/Desktop/AquiumOS/CMakeFiles/startAQ.so.dir
+/home/gamer/Desktop/AquiumOS/CMakeFiles/installer_dep.so.dir
+/home/gamer/Desktop/AquiumOS/CMakeFiles/init_gameros.so.dir
 /home/gamer/Desktop/AquiumOS/CMakeFiles/edit_cache.dir
 /home/gamer/Desktop/AquiumOS/CMakeFiles/rebuild_cache.dir
