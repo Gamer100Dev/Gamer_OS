@@ -54,7 +54,7 @@ struct Packages {
 };
 
 bool isPackageInstalled(const std::string& packageName) {
-    std::string command = "pkg info -e " + packageName;
+    std::string command = "pkg info " + packageName;
 
     FILE* pipe = popen(command.c_str(), "r");
     if (!pipe) {
