@@ -4,13 +4,10 @@ project(AquiumOS)
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Set output directory for executables
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
-
-# Specify GCC as the compiler (adjust path if necessary)
 set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_C_COMPILER "gcc")
+# Set output directory for executables
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
 # Find Qt packages
 find_package(Qt5Widgets REQUIRED)
@@ -23,9 +20,6 @@ include_directories(
     ${Qt5Gui_INCLUDE_DIRS}
     ${Qt5Core_INCLUDE_DIRS}
 )
-
-# Find X11 package (if needed)
-find_package(X11 REQUIRED)
 
 # Source files for startAQ executable
 set(startAQ_SOURCES
@@ -40,9 +34,49 @@ target_link_libraries(startAQ.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
-    X11::X11  # Use X11 library found by CMake
-    Xrandr
-    Xcursor
-    GLEW
-    GL  # Link against OpenGL library (libGL)
+    -lX11
+    -lXrandr
+    -lXcursor
+    -lGLEW
+    -lGL  # Link against OpenGL library (libGL)
+)
+
+# Source files for installer_dep executable
+set(installer_dep_SOURCES
+    src/installer_dep.cpp
+)
+
+# Executable for installer_dep
+add_executable(installer_dep.so ${installer_dep_SOURCES})
+
+# Link libraries for installer_dep
+target_link_libraries(installer_dep.so
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
+    -lX11
+    -lXrandr
+    -lXcursor
+    -lGLEW
+    -lGL  # Link against OpenGL library (libGL)
+)
+
+# Source files for init_gameros executable
+set(init_gameros_SOURCES
+    src/init_window.cpp
+)
+
+# Executable for init_gameros
+add_executable(init_gameros.so ${init_gameros_SOURCES})
+
+# Link libraries for init_gameros
+target_link_libraries(init_gameros.so
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
+    -lX11
+    -lXrandr
+    -lXcursor
+    -lGLEW
+    -lGL  # Link against OpenGL library (libGL)
 )
