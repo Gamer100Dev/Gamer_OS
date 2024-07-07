@@ -155,6 +155,56 @@ init_gameros.so/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/init_gameros.so.dir/build.make CMakeFiles/init_gameros.so.dir/build
 .PHONY : init_gameros.so/fast
 
+#=============================================================================
+# Target rules for targets named launchd.so
+
+# Build rule for target.
+launchd.so: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 launchd.so
+.PHONY : launchd.so
+
+# fast build rule for target.
+launchd.so/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchd.so.dir/build.make CMakeFiles/launchd.so.dir/build
+.PHONY : launchd.so/fast
+
+#=============================================================================
+# Target rules for targets named System_Services.so
+
+# Build rule for target.
+System_Services.so: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 System_Services.so
+.PHONY : System_Services.so
+
+# fast build rule for target.
+System_Services.so/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/System_Services.so.dir/build.make CMakeFiles/System_Services.so.dir/build
+.PHONY : System_Services.so/fast
+
+src/System_Services.o: src/System_Services.cpp.o
+.PHONY : src/System_Services.o
+
+# target to build an object file
+src/System_Services.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/System_Services.so.dir/build.make CMakeFiles/System_Services.so.dir/src/System_Services.cpp.o
+.PHONY : src/System_Services.cpp.o
+
+src/System_Services.i: src/System_Services.cpp.i
+.PHONY : src/System_Services.i
+
+# target to preprocess a source file
+src/System_Services.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/System_Services.so.dir/build.make CMakeFiles/System_Services.so.dir/src/System_Services.cpp.i
+.PHONY : src/System_Services.cpp.i
+
+src/System_Services.s: src/System_Services.cpp.s
+.PHONY : src/System_Services.s
+
+# target to generate assembly for a file
+src/System_Services.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/System_Services.so.dir/build.make CMakeFiles/System_Services.so.dir/src/System_Services.cpp.s
+.PHONY : src/System_Services.cpp.s
+
 src/Window_Manager.o: src/Window_Manager.cpp.o
 .PHONY : src/Window_Manager.o
 
@@ -227,6 +277,30 @@ src/installer_dep.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/installer_dep.so.dir/build.make CMakeFiles/installer_dep.so.dir/src/installer_dep.cpp.s
 .PHONY : src/installer_dep.cpp.s
 
+src/launchd.o: src/launchd.cpp.o
+.PHONY : src/launchd.o
+
+# target to build an object file
+src/launchd.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchd.so.dir/build.make CMakeFiles/launchd.so.dir/src/launchd.cpp.o
+.PHONY : src/launchd.cpp.o
+
+src/launchd.i: src/launchd.cpp.i
+.PHONY : src/launchd.i
+
+# target to preprocess a source file
+src/launchd.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchd.so.dir/build.make CMakeFiles/launchd.so.dir/src/launchd.cpp.i
+.PHONY : src/launchd.cpp.i
+
+src/launchd.s: src/launchd.cpp.s
+.PHONY : src/launchd.s
+
+# target to generate assembly for a file
+src/launchd.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/launchd.so.dir/build.make CMakeFiles/launchd.so.dir/src/launchd.cpp.s
+.PHONY : src/launchd.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -235,9 +309,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... System_Services.so"
 	@echo "... init_gameros.so"
 	@echo "... installer_dep.so"
+	@echo "... launchd.so"
 	@echo "... startAQ.so"
+	@echo "... src/System_Services.o"
+	@echo "... src/System_Services.i"
+	@echo "... src/System_Services.s"
 	@echo "... src/Window_Manager.o"
 	@echo "... src/Window_Manager.i"
 	@echo "... src/Window_Manager.s"
@@ -247,6 +326,9 @@ help:
 	@echo "... src/installer_dep.o"
 	@echo "... src/installer_dep.i"
 	@echo "... src/installer_dep.s"
+	@echo "... src/launchd.o"
+	@echo "... src/launchd.i"
+	@echo "... src/launchd.s"
 .PHONY : help
 
 

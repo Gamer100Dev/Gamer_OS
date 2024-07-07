@@ -4,8 +4,7 @@ project(AquiumOS)
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_C_COMPILER "gcc")
+
 # Set output directory for executables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
 
@@ -34,11 +33,11 @@ target_link_libraries(startAQ.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
-    -lX11
-    -lXrandr
-    -lXcursor
-    -lGLEW
-    -lGL  # Link against OpenGL library (libGL)
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
 )
 
 # Source files for installer_dep executable
@@ -54,11 +53,11 @@ target_link_libraries(installer_dep.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
-    -lX11
-    -lXrandr
-    -lXcursor
-    -lGLEW
-    -lGL  # Link against OpenGL library (libGL)
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
 )
 
 # Source files for init_gameros executable
@@ -74,9 +73,37 @@ target_link_libraries(init_gameros.so
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core
-    -lX11
-    -lXrandr
-    -lXcursor
-    -lGLEW
-    -lGL  # Link against OpenGL library (libGL)
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
+)
+set(launchd_SOURCES
+    src/launchd.cpp
+)
+add_executable(launchd.so ${launchd_SOURCES})
+target_link_libraries(launchd.so
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
+)
+set(System_Services_SOURCES
+    src/System_Services.cpp
+)
+add_executable(System_Services.so ${System_Services_SOURCES})
+target_link_libraries(System_Services.so
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL  # Link against OpenGL library (libGL)
 )
