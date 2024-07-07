@@ -51,6 +51,8 @@ struct Packages {
     std::string xorg = "xorg";
     std::string pulseaudio = "pulseaudio";
     std::string NetworkManager = "networkmgr";
+    std::string qt5core = "qt5-core";
+    std::string qt5widgets = "qt5-widgets";
     std::vector<std::string> packagesToInstall;
 };
 
@@ -75,6 +77,7 @@ bool isPackageInstalled(const std::string& packageName) {
 }
 
 void CheckIfPackagesExist(Packages& packages) {
+
     if (isPackageInstalled(packages.xorg)) {
         print(packages.xorg + " is installed.");
     } else {
@@ -82,6 +85,7 @@ void CheckIfPackagesExist(Packages& packages) {
         packages.packagesToInstall.push_back(packages.xorg);
     }
 
+   
     if (isPackageInstalled(packages.pulseaudio)) {
         print(packages.pulseaudio + " is installed.");
     } else {
@@ -89,13 +93,31 @@ void CheckIfPackagesExist(Packages& packages) {
         packages.packagesToInstall.push_back(packages.pulseaudio);
     }
 
+
     if (isPackageInstalled(packages.NetworkManager)) {
         print(packages.NetworkManager + " is installed.");
     } else {
         print(packages.NetworkManager + " is NOT installed. Attempting to install...");
         packages.packagesToInstall.push_back(packages.NetworkManager);
     }
+
+
+    if (isPackageInstalled(packages.qt5core)) {
+        print(packages.qt5core + " is installed.");
+    } else {
+        print(packages.qt5core + " is NOT installed. Attempting to install...");
+        packages.packagesToInstall.push_back(packages.qt5core);
+    }
+
+  
+    if (isPackageInstalled(packages.qt5widgets)) {
+        print(packages.qt5widgets + " is installed.");
+    } else {
+        print(packages.qt5widgets + " is NOT installed. Attempting to install...");
+        packages.packagesToInstall.push_back(packages.qt5widgets);
+    }
 }
+
 void installMissingPackages(const Packages& packages) {
     for (const auto& package : packages.packagesToInstall) {
         std::string command = "sudo pkg install -y " + package;
