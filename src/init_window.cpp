@@ -9,7 +9,7 @@ std::string Get_Active_Time(){
     auto current_time = std::chrono::system_clock::now();
     std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
     return std::ctime(&current_time_t);
-}
+}   
 void init_drivers(){
     std::cout << "LOG: Launching i915kms.ko " << Get_Active_Time << std::endl;
     system("kldload i915kms.ko");
