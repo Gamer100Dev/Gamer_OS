@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/init_gameros.dir/src/init_window.cpp.o -o build/init_gameros  /usr/lib/libQt5Widgets.so.5.15.14 /usr/lib/libQt5Gui.so.5.15.14 /usr/lib/libQt5Core.so.5.15.14 -lX11 -lXrandr -lXcursor -lGLEW -lGL

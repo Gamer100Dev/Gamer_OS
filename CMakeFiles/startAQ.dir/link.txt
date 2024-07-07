@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/startAQ.dir/src/Window_Manager.cpp.o -o build/startAQ  /usr/lib/libQt5Widgets.so.5.15.14 /usr/lib/libQt5Gui.so.5.15.14 /usr/lib/libQt5Core.so.5.15.14 -lX11 -lXrandr -lXcursor -lGLEW -lGL
