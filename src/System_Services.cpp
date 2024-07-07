@@ -50,7 +50,8 @@ int print(const std::string& text) {
 struct Packages {
     std::string xorg = "xorg";
     std::string pulseaudio = "pulseaudio";
-    std::string NetworkManager = "NetworkManager";
+    std::string NetworkManager = "networkmgr";
+    std::vector<std::string> packagesToInstall;
 };
 
 bool isPackageInstalled(const std::string& packageName) {
@@ -73,23 +74,37 @@ bool isPackageInstalled(const std::string& packageName) {
     return result.find(packageName) != std::string::npos;
 }
 
-void CheckIfPackagesExist(const Packages& packages) {
+void CheckIfPackagesExist(Packages& packages) {
     if (isPackageInstalled(packages.xorg)) {
         print(packages.xorg + " is installed.");
     } else {
-        print(packages.xorg + " is NOT installed.");
+        print(packages.xorg + " is NOT installed. Attempting to install...");
+        packages.packagesToInstall.push_back(packages.xorg);
     }
 
     if (isPackageInstalled(packages.pulseaudio)) {
         print(packages.pulseaudio + " is installed.");
     } else {
-        print(packages.pulseaudio + " is NOT installed.");
+        print(packages.pulseaudio + " is NOT installed. Attempting to install...");
+        packages.packagesToInstall.push_back(packages.pulseaudio);
     }
 
     if (isPackageInstalled(packages.NetworkManager)) {
         print(packages.NetworkManager + " is installed.");
     } else {
-        print(packages.NetworkManager + " is NOT installed.");
+        print(packages.NetworkManager + " is NOT installed. Attempting to install...");
+        packages.packagesToInstall.push_back(packages.NetworkManager);
+    }
+}
+void installMissingPackages(const Packages& packages) {
+    for (const auto& package : packages.packagesToInstall) {
+        std::string command = "sudo pkg install -y " + package;
+        int result = system(command.c_str());
+        if (result == 0) {
+            print(package + " installed successfully.");
+        } else {
+            print("Failed to install " + package + ". Check logs for details.");
+        }
     }
 }
 
@@ -98,7 +113,10 @@ int main() {
 
     Packages packages;
     CheckIfPackagesExist(packages);
-
+    if (!packages.packagesToInstall.empty()) {
+        installMissingPackages(packages);
+    }
+    CheckIfPackagesExist(packages);
     std::cout << "Current user: " << getCurrentUser() << std::endl;
     std::cout << "Active time: " << Get_Active_Time() << std::endl;
 
