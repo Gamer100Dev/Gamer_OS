@@ -129,7 +129,51 @@ void installMissingPackages(const Packages& packages) {
         }
     }
 }
+void launchPulseAudioDaemon() {
 
+    if (system("pgrep pulseaudio > /dev/null") == 0) {
+        std::cout << "PulseAudio daemon is already running." << std::endl;
+        return;
+    }
+
+
+    int result = system("./launchd.so --run pulseaudio --start");
+
+    if (result == 0) {
+        std::cout << "PulseAudio daemon started successfully." << std::endl;
+    } else {
+        std::cerr << "Failed to start PulseAudio daemon." << std::endl;
+    }
+}
+void adjustVolume(int delta) {
+
+    std::string command = "pactl set-sink-volume @DEFAULT_SINK@ ";
+    command += std::to_string(delta) + "%";
+
+    int result = system(command.c_str());
+
+    if (result == 0) {
+        std::cout << "Volume adjusted successfully." << std::endl;
+    } else {
+        std::cerr << "Failed to adjust volume." << std::endl;
+    }
+}
+
+void startNetworkManagerService() {
+
+    if (system("pgrep NetworkManager > /dev/null") == 0) {
+        std::cout << "NetworkManager service is already running." << std::endl;
+        return;
+    }
+
+    int result = system("sudo service NetworkManager onestart");
+
+    if (result == 0) {
+        std::cout << "NetworkManager service started successfully." << std::endl;
+    } else {
+        std::cerr << "Failed to start NetworkManager service." << std::endl;
+    }
+}
 int main() {
     print("System_Services is loading!");
 
@@ -141,6 +185,12 @@ int main() {
     CheckIfPackagesExist(packages);
     std::cout << "Current user: " << getCurrentUser() << std::endl;
     std::cout << "Active time: " << Get_Active_Time() << std::endl;
-
+    print("Launching PulseAudio Services");
+    launchPulseAudioDaemon();
+    int delta_P = 10; 
+    int delta_N = -10; 
+    // adjustVolume(delta); in theory
+    print("Launching Networkmgr!");
+    startNetworkManagerService();
     return 0;
 }
