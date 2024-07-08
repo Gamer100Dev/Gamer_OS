@@ -160,20 +160,30 @@ void adjustVolume(int delta) {
 }
 
 void startNetworkManagerService() {
-
+    // Check if NetworkManager is already running
     if (system("exec pgrep NetworkManager > /dev/null") == 0) {
         std::cout << "NetworkManager service is already running." << std::endl;
         return;
     }
 
+    // Attempt to start NetworkManager
     int result = system("sudo service NetworkManager onestart");
 
     if (result == 0) {
         std::cout << "NetworkManager service started successfully." << std::endl;
     } else {
         std::cerr << "Failed to start NetworkManager service." << std::endl;
+        // This might be due to it not being enabled in rc.conf
+        std::string command = "echo 'networkmgr_enable=YES' | sudo tee -a /etc/rc.conf";
+        int command_R = system(command.c_str());
+        if (command_R == 0) {
+            std::cout << "Successfully added networkmgr_enable=YES to /etc/rc.conf. Network Manager should work after reboot or manual start." << std::endl;
+        } else {
+            std::cerr << "Failed to add networkmgr_enable=YES to /etc/rc.conf. Check if Network Manager is installed and executable is present." << std::endl;
+        }
     }
 }
+
 int main() {
     print("System_Services is loading!");
 
@@ -192,5 +202,6 @@ int main() {
     // adjustVolume(delta); in theory
     print("Launching Networkmgr!");
     startNetworkManagerService();
+    print("SYSTEM_READY! System is up!");
     return 0;
 }
