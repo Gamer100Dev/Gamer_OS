@@ -137,7 +137,7 @@ void launchPulseAudioDaemon() {
     }
 
 
-    int result = system("./launchd.so --run pulseaudio --start");
+    int result = system("exec ./launchd.so --run pulseaudio --start");
 
     if (result == 0) {
         std::cout << "PulseAudio daemon started successfully." << std::endl;
@@ -161,7 +161,7 @@ void adjustVolume(int delta) {
 
 void startNetworkManagerService() {
 
-    if (system("pgrep NetworkManager > /dev/null") == 0) {
+    if (system("exec pgrep NetworkManager > /dev/null") == 0) {
         std::cout << "NetworkManager service is already running." << std::endl;
         return;
     }
