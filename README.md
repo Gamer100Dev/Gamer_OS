@@ -26,12 +26,6 @@ System Requirements
     Storage: 20GB free space
     Graphics: GPU with OpenGL 3.3 support or better
 
-Installation Guide
-
-    Download the ISO: Get the latest Gamer_OS ISO from our official website.
-    Create a Bootable USB: Use tools like Etcher or Rufus to create a bootable USB drive.
-    Boot from USB: Restart your computer and boot from the USB drive.
-    Install Gamer_OS: Follow the on-screen instructions to install Gamer_OS on your system.
 
 🛠️ Contribute
 
