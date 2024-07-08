@@ -14,7 +14,6 @@ Welcome to Gamer_OS – a sleek, powerful operating system designed for gamers w
 
 🎮 Gaming Support
 
-    Steam & Lutris: Seamlessly run your favorite games with built-in support for Steam and Lutris.
     Graphics Drivers: Out-of-the-box support for the latest AMD and NVIDIA drivers ensures you get the best performance from your hardware.
     Controller Support: Plug and play support for a wide range of game controllers, including Xbox and PlayStation controllers.
 
