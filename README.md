@@ -18,16 +18,6 @@ Welcome to Gamer_OS – a sleek, powerful operating system designed for gamers w
     Graphics Drivers: Out-of-the-box support for the latest AMD and NVIDIA drivers ensures you get the best performance from your hardware.
     Controller Support: Plug and play support for a wide range of game controllers, including Xbox and PlayStation controllers.
 
-📦 Software & Compatibility
-
-    App Store: Access a curated collection of applications and games optimized for Gamer_OS.
-    Compatibility Layer: Run Windows games and applications with ease using Wine and other compatibility tools.
-    Development Tools: Comprehensive development environment for game developers, including support for popular engines like Unity and Unreal Engine.
-
-🔒 Security & Privacy
-
-    Secure Boot: Enhanced security features protect your system from unauthorized access and malware.
-    Privacy Controls: Take control of your data with advanced privacy settings and tools.
 
 🚀 Getting Started
 System Requirements
@@ -44,22 +34,6 @@ Installation Guide
     Boot from USB: Restart your computer and boot from the USB drive.
     Install Gamer_OS: Follow the on-screen instructions to install Gamer_OS on your system.
 
-💬 Community & Support
-
-Join our vibrant community of gamers and developers to share tips, tricks, and support:
-
-    Forums: Connect with other Gamer_OS users on our official forums.
-    Discord: Join our Discord server for real-time chat and support.
-    GitHub: Contribute to Gamer_OS development on our GitHub repository.
-
-📚 Documentation
-
-Comprehensive documentation is available to help you get the most out of Gamer_OS:
-
-    User Guide: Step-by-step tutorials and guides for new users.
-    Developer Guide: Detailed documentation for developers, including API references and coding examples.
-    FAQ: Answers to common questions and troubleshooting tips.
-
 🛠️ Contribute
 
 Gamer_OS is an open-source project, and we welcome contributions from the community. Whether you're a developer, designer, or just a passionate gamer, there are many ways to get involved:
@@ -68,14 +42,3 @@ Gamer_OS is an open-source project, and we welcome contributions from the commun
     Feature Requests: Suggest new features and improvements.
     Code Contributions: Submit pull requests with bug fixes and new features.
 
-🌐 Connect with Us
-
-Stay up to date with the latest news and updates from the Gamer_OS team:
-
-    Twitter: Follow us on Twitter.
-    Facebook: Like our Facebook page.
-    YouTube: Subscribe to our YouTube channel for tutorials and gameplay videos.
-
-Thank you for choosing Gamer_OS. We hope you enjoy the ultimate gaming experience on BSD. Happy gaming! 🎮
-
-Disclaimer: Gamer_OS is not affiliated with or endorsed by Apple Inc. macOS is a trademark of Apple Inc.
