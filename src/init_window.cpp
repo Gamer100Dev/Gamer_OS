@@ -24,7 +24,7 @@ void Start_DE() {
 
 void StartX() {
     std::cout << "LOG: Launching XServer at: " << Get_Active_Time() << std::endl;
-    system("startx");
+    system("X");
 
 
     std::thread de_thread(Start_DE);
