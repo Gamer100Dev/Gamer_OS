@@ -1,8 +1,6 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
 #include <cstdlib>
 
 std::string Get_Active_Time() {
@@ -24,12 +22,15 @@ void Start_DE() {
 
 void StartX() {
     std::cout << "LOG: Launching XServer at: " << Get_Active_Time() << std::endl;
-    system("X");
+    
+    // Example custom startx command with options
+    std::string command = "startx -- -dpi 96 -depth 24";
+    system(command.c_str());
 
-
+    // Start Start_DE() in a separate thread
     std::thread de_thread(Start_DE);
 
-
+    // Ensure main thread waits for DE to finish
     de_thread.join();
 }
 
