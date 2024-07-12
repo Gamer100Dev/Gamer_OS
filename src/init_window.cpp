@@ -28,16 +28,16 @@ void StartX() {
     int result = system(command.c_str());
     if (result == 1){
         // There is no .xinitrc
-        system("touch /root/.xinitrc");
-        system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
-        system(command.c_str());
-        init_drivers();
+   
     }
     init_drivers();
 }
 
 int main() {
     std::cout << "LOG: Welcome to Gamer OS! Time is " << Get_Active_Time() << std::endl;
+    system("touch /root/.xinitrc");
+    system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
+    init_drivers();
     StartX();
     return 0;
 }
