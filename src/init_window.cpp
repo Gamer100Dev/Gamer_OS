@@ -30,6 +30,8 @@ void StartX() {
         // There is no .xinitrc
    
     }
+    std::string System_services_init = "/Gamer_OS/kernel/modules/System_Services.so";
+    system(System_services_init.c_str());
     init_drivers();
 }
 
