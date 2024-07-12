@@ -24,14 +24,15 @@ void StartX() {
     std::cout << "LOG: Launching XServer at: " << Get_Active_Time() << std::endl;
     
     // Example custom startx command with options
-    std::string command = "startx -- -dpi 96 -depth 24";
-    system(command.c_str());
-
-    // Start Start_DE() in a separate thread
-    std::thread de_thread(Start_DE);
-
-    // Ensure main thread waits for DE to finish
-    de_thread.join();
+    std::string command = "/Gamer_OS/kernel/modules/launchd.so --run startx -- -dpi 96 -depth 24";
+    int result = system(command.c_str());
+    if (result == 1){
+        // There is no .xinitrc
+        system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
+        system(command.c_str());
+        init_drivers();
+    }
+    init_drivers();
 }
 
 int main() {
