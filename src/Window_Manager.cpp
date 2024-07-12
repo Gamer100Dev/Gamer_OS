@@ -13,13 +13,39 @@
 #include <QDockWidget>
 #include <QScreen>
 #include <QTime>
+#include <QDebug>
 #include <cstdlib>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 #include <X11/Xcursor/Xcursor.h>
-
+#include <GL/gl.h>
+#include <iomanip>
+#include <vector>
+#include <cstring>
+#include <unistd.h>
+#include <pwd.h>
 // Global variable for resolution
 std::string Reso;
+std::string modules_apps = "/Gamer_OS/kernel/modules";
+std::string launchd = modules_apps + "/launchd.ko";
+int calculateDockPoints(int& dock_x1, int& dock_x2, int& dock_y1, int& dock_y2) {
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (!screen) {
+        std::cerr << "Error: Could not get primary screen" << std::endl;
+        return 1;
+    }
+
+    int screenWidth = screen->size().width();
+    int screenHeight = screen->size().height();
+
+    dock_x1 = (screenWidth - (dock_y1 + dock_y2)) / 2;
+    dock_y1 = screenHeight - (dock_y1 + dock_x1);
+    dock_x2 = dock_x1 + (dock_y1 + dock_y2);
+    dock_y2 = screenHeight;
+
+    std::cout << "DEBUG: DockX1 " << dock_x1 << " DockY1 " << dock_y1 << " DockX2 " << dock_x2 << " DockY2 " << dock_y2 << std::endl;
+    return(dock_x1 , dock_x2, dock_y1, dock_y2);
+}
 
 void customSleep(int seconds) {
     QEventLoop loop;
@@ -189,7 +215,57 @@ int getMiddleBottomCenter(int& WidgetX, int& WidgetY) {
     std::cout << "DEBUG: DockX " << WidgetX << " DOCKY " << WidgetY << std::endl;
     return WidgetX,WidgetY;
 }
+int Caclulate_Widget_X_Y_Bar(int& x1, int& x2, int& y1, int&y2){
 
+}
+std::string getCurrentUser() {
+    const char* user = getenv("USER");
+    if (user == nullptr) {
+        struct passwd* pw = getpwuid(getuid());
+        if (pw) {
+            user = pw->pw_name;
+        }
+    }
+    return user ? user : "unknown";
+}
+
+bool PowerOff() {
+    std::cout << "LOG: System is powering off! Requested by the user of " << getCurrentUser() << " at "  << Get_Active_Time().toStdString() << std::endl;
+    int command = system("sudo poweroff");
+    if (command == 0) {
+        std::cout << "LOG: Fired exit! Awaiting kernel response!" << std::endl;
+        return true;
+    } else {
+        std::cout << "LOG: Something is preventing the kernel to power off, please check the applications in the background!" << std::endl;
+        return false;
+    }
+}
+// << Get_Active_Time()
+bool SignOut() {
+    std::cout << "LOG: Requested to sign out! Requested by the user of " << getCurrentUser() << " at "  << Get_Active_Time().toStdString() << std::endl;
+    int command = system("sudo pkill X startAQ");
+    if (command == 0) {
+        std::cout << "LOG: Fired exit! Awaiting kernel response!" << std::endl;
+        return true;
+    } else {
+        std::cout << "LOG: Something went wrong with the sign out process!" << std::endl;
+        return false;
+    }
+}
+// FreeBSD Userspace management
+
+bool LogIn(QString &username, QString &password){
+    std::string std_usrname = username.toStdString();
+    std::string std_password = password.toStdString();
+
+    int command = system(std::string("login " + std_usrname + " " + std_password).c_str());
+
+    if (command == 0){
+        return 0;
+    } else {
+        return 1;
+    }
+}
 void DrawDE(Display* display) {
     std::cout << "LOG: Resolution for window is " << Reso << std::endl;
     int DockX; 
@@ -221,20 +297,29 @@ void DrawDE(Display* display) {
     int textEdit_w = 141;
     int textEdit_h = 15;
 
-    int dockWidget_x = DockX;
-    int dockWidget_y = DockY;
-    int dockWidget_w = 821;
-    int dockWidget_h = 80;
+    int dock_x1;
+    int dock_x2;
+    int dock_y1;
+    int dock_y2;
+    // Call of widgets points
+    calculateDockPoints(dock_x1, dock_x2, dock_y1, dock_y2);
+
 
     calculateScaledPosition(baseWidth, baseHeight, button1_x, button1_y, button1_w, button1_h);
     calculateScaledPosition(baseWidth, baseHeight, button2_x, button2_y, button2_w, button2_h);
     calculateScaledPosition(baseWidth, baseHeight, textEdit_x, textEdit_y, textEdit_w, textEdit_h);
-    calculateScaledPosition(baseWidth, baseHeight, dockWidget_x, dockWidget_y, dockWidget_w, dockWidget_h);
+
 
     QPushButton* pushButton = new QPushButton("Search", &mainWindow);
     pushButton->setGeometry(button1_x, button1_y, button1_w, button1_h);
     QObject::connect(pushButton, &QPushButton::clicked, []() {
         std::cout << "Search button clicked!" << std::endl;
+    });
+
+    QPushButton* options_button = new QPushButton("Options" , &mainWindow);
+    options_button->setGeometry(360, button1_y, button1_w, button1_h);
+    QObject::connect(options_button, &QPushButton::clicked, [](){
+        PowerOff();
     });
 
     QPushButton* pushButton_2 = new QPushButton("Apps", &mainWindow);
@@ -252,10 +337,6 @@ void DrawDE(Display* display) {
         vScrollBar->setVisible(false);
     }
 
-    QDockWidget* dockWidget = new QDockWidget(&mainWindow);
-    dockWidget->setGeometry(dockWidget_x, dockWidget_y, dockWidget_w, dockWidget_h);
-    dockWidget->setAcceptDrops(true);
-    dockWidget->setFloating(false);
 
     mainWindow.show();
    
