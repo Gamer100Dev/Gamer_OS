@@ -20,7 +20,11 @@
 
 const std::string dir = "/Gamer_OS/kernel/modules/";
 const std::string Package_Commandi = "sudo pkg install "; // One of the things that I was talking about.
+#ifdef __FREEBSD__
 const std::string launchd = "/Gamer_OS/kernel/modules/launchd.so";
+#else
+    const std::string launchd = "/home/gamerpc/Gamer_OS/build/launchd"; // For linux
+#endif
 
 std::string getCurrentUser() {
     const char* user = getenv("USER");

@@ -2,7 +2,11 @@
 #include <chrono>
 #include <thread>
 #include <cstdlib>
-
+#ifdef __FREEBSD__
+    const std::string gamer_starter = "/Gamer_OS/kernel/modules/gamer_starter.so";
+#else
+    const std::string gamer_starter = "/home/gamerpc/Gamer_OS/build/gamer_compositor";
+#endif
 std::string Get_Active_Time() {
     auto current_time = std::chrono::system_clock::now();
     std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
@@ -34,12 +38,12 @@ void StartX() {
     system(System_services_init.c_str());
     init_drivers();
 }
-
 int main() {
     std::cout << "LOG: Welcome to Gamer OS! Time is " << Get_Active_Time() << std::endl;
-    system("touch /root/.xinitrc");
-    system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
+  //  system("touch /root/.xinitrc");
+ //   system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
     init_drivers();
-    StartX();
+    system(gamer_starter.c_str());
+ //   StartX();
     return 0;
 }

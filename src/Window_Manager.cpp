@@ -316,7 +316,7 @@ void DrawDE(Display* display) {
         std::cout << "Search button clicked!" << std::endl;
     });
 
-    QPushButton* options_button = new QPushButton("Options" , &mainWindow);
+    QPushButton* options_button = new QPushButton("Poweroff" , &mainWindow);
     options_button->setGeometry(360, button1_y, button1_w, button1_h);
     QObject::connect(options_button, &QPushButton::clicked, [](){
         PowerOff();
@@ -332,6 +332,13 @@ void DrawDE(Display* display) {
     ktextedit->setGeometry(textEdit_x, textEdit_y, textEdit_w, textEdit_h);
     ktextedit->setPlainText(Get_Active_Time());
     ktextedit->setReadOnly(true);
+    QTimer* timer = new QTimer(&mainWindow);
+    QObject::connect(timer, &QTimer::timeout, [&]() {
+        ktextedit->setPlainText(Get_Active_Time());
+      //  vScrollBar->setValue(vScrollBar->maximum());  // Optional: Auto-scroll to the bottom
+    });
+    timer->start(1000);  // 1000 ms = 1 second
+
     QScrollBar* vScrollBar = ktextedit->verticalScrollBar();
     if (vScrollBar) {
         vScrollBar->setVisible(false);
@@ -340,16 +347,16 @@ void DrawDE(Display* display) {
 
     mainWindow.show();
    
-    Cursor cursor = XcursorFilenameLoadCursor(display, "/Assets/cursor");
-    if (cursor == None) {
-        std::cerr << "Error: Could not load custom cursor" << std::endl;
-    } else {
-        Window rootWindow = DefaultRootWindow(display);
-        XDefineCursor(display, rootWindow, cursor);
-        XFlush(display);
-        std::cout << "LOG: Custom cursor set." << std::endl;
-    }
-    customSleep(5);
+  //  Cursor cursor = XcursorFilenameLoadCursor(display, "/Assets/cursor");
+ //   if (cursor == None) {
+ //       std::cerr << "Error: Could not load custom cursor" << std::endl;
+  //  } else {
+  //      Window rootWindow = DefaultRootWindow(display);
+   //     XDefineCursor(display, rootWindow, cursor);
+   //     XFlush(display);
+   //     std::cout << "LOG: Custom cursor set." << std::endl;
+   // }
+   // customSleep(5);
     
     app.exec();
 }
