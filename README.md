@@ -23,7 +23,7 @@ System Requirements
 
     Processor: 64-bit Intel or AMD processor
     RAM: 4GB minimum (8GB recommended)
-    Storage: 20GB free space
+    Storage: 5GB free space
     Graphics: GPU with OpenGL 3.3 support or better
 
 
