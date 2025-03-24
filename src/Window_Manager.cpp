@@ -301,7 +301,7 @@ void DrawDE(Display* display) {
     int button2_w = 60;
     int button2_h = 16;
 
-    int textEdit_x = 880;
+    int textEdit_x = 860;
     int textEdit_y = 10;
     int textEdit_w = 180;
     int textEdit_h = 20;
