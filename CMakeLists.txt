@@ -5,8 +5,8 @@ project(AquiumOS)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_C_COMPILER gcc)
-set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
 
 # Set output directory for executables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -22,7 +22,7 @@ include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Core_
 # Find Wayland libraries and scanner
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(WAYLAND_SCANNER REQUIRED wayland-scanner)
-pkg_check_modules(WLR REQUIRED wlroots)
+pkg_check_modules(WLR REQUIRED wlroots-0.18)
 pkg_check_modules(WAYLAND REQUIRED wayland-server wayland-client xkbcommon)
 
 # Find wayland-scanner
@@ -72,12 +72,9 @@ add_executable(launchd.so ${launchd_SOURCES})
 add_executable(System_Services.so ${System_Services_SOURCES})
 
 # Link libraries
-target_link_libraries(gamer_compositor.so ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(startAQ.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(installer_dep.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(init_gameros.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(launchd.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(System_Services.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+foreach(target gamer_compositor.so startAQ.so installer_dep.so init_gameros.so launchd.so System_Services.so)
+    target_link_libraries(${target} Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+endforeach()
 
 # Set output suffix for FreeBSD compatibility
 set_target_properties(gamer_compositor.so startAQ.so installer_dep.so init_gameros.so launchd.so System_Services.so PROPERTIES SUFFIX ".so")
