@@ -1,3 +1,5 @@
+make_minimum_required(VERSION 3.5)
+project(AquiumOS)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
