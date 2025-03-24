@@ -34,14 +34,19 @@ endif()
 # Set Wayland protocol path for Linux and FreeBSD
 if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
     set(WAYLAND_PROTOCOLS_PATH "/usr/local/share/wayland-protocols")
+    set(WLROOTS_INCLUDE_DIR "/usr/local/include/wlroots")
 else()
     set(WAYLAND_PROTOCOLS_PATH "/usr/share/wayland-protocols")
+    set(WLROOTS_INCLUDE_DIR "/usr/include/wlroots")
 endif()
 
 # Ensure the protocol file exists
 if (NOT EXISTS "${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml")
     message(FATAL_ERROR "xdg-shell.xml not found in ${WAYLAND_PROTOCOLS_PATH}")
 endif()
+
+# Include wlroots directory
+include_directories(${WLROOTS_INCLUDE_DIR})
 
 # Define output file for Wayland protocol
 set(XDG_SHELL_PROTOCOL_OUTPUT "${CMAKE_BINARY_DIR}/xdg-shell-protocol.h")
