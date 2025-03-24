@@ -14,7 +14,7 @@ int main(){
     
     fs::path currentDir = fs::current_path();
     
-    std::string command = "sudo cp -r " + currentDir.string() + "/build" + "/* /Gamer_OS/kernel/modules/";
+    std::string command = "sudo cp -r " + currentDir.string() + "/* /Gamer_OS/kernel/modules/";
     std::cout << "LOG: DEV_INSTALLER VER " << version  << " installing compilied dep! " << Get_Active_Time << std::endl;
     system(command.c_str());
 }
