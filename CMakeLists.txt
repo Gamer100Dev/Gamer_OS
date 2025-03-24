@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(AquiumOS)
-
+# Integrated the .so executable standard for Aquium_OS
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2")
@@ -58,20 +58,12 @@ include_directories(
 set(WAYLAND_PROTOCOLS_PATH "/usr/share/wayland-protocols")
 
 # Generate the xdg-shell-protocol.h file
-find_path(WAYLAND_PROTOCOLS_DIR stable/xdg-shell/xdg-shell.xml
-    PATHS /usr/share/wayland-protocols
-)
-
-if (NOT WAYLAND_PROTOCOLS_DIR)
-    message(FATAL_ERROR "xdg-shell.xml not found! Make sure wayland-protocols is installed.")
-endif()
-
 add_custom_command(
     OUTPUT ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} server-header
-            ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml
+            ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
             ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
-    DEPENDS ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml
+    DEPENDS ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
     COMMENT "Generating xdg-shell-protocol.h"
 )
 
@@ -87,7 +79,7 @@ set(gamer_compositor_SOURCES
 )
 
 # Add the tinywl executable
-add_executable(gamer_compositor ${gamer_compositor_SOURCES})
+add_executable(gamer_compositor.so ${gamer_compositor_SOURCES})
 
 # Link libraries for tinywl
 target_link_libraries(gamer_compositor
@@ -107,7 +99,7 @@ set(startAQ_SOURCES
 )
 
 # Executable for startAQ
-add_executable(startAQ ${startAQ_SOURCES})
+add_executable(startAQ.so ${startAQ_SOURCES})
 
 # Link libraries for startAQ
 target_link_libraries(startAQ
@@ -132,7 +124,7 @@ set(installer_dep_SOURCES
 )
 
 # Executable for installer_dep
-add_executable(installer_dep ${installer_dep_SOURCES})
+add_executable(installer_dep.so ${installer_dep_SOURCES})
 
 # Link libraries for installer_dep
 target_link_libraries(installer_dep
@@ -157,7 +149,7 @@ set(init_gameros_SOURCES
 )
 
 # Executable for init_gameros
-add_executable(init_gameros ${init_gameros_SOURCES})
+add_executable(init_gameros.so ${init_gameros_SOURCES})
 
 # Link libraries for init_gameros
 target_link_libraries(init_gameros
@@ -182,7 +174,7 @@ set(launchd_SOURCES
 )
 
 # Executable for launchd
-add_executable(launchd ${launchd_SOURCES})
+add_executable(launchd.so ${launchd_SOURCES})
 
 # Link libraries for launchd
 target_link_libraries(launchd
@@ -207,7 +199,7 @@ set(System_Services_SOURCES
 )
 
 # Executable for System_Services
-add_executable(System_Services ${System_Services_SOURCES})
+add_executable(System_Services.so ${System_Services_SOURCES})
 
 # Link libraries for System_Services
 target_link_libraries(System_Services
