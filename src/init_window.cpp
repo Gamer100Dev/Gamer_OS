@@ -4,9 +4,12 @@
 #include <cstdlib>
 using namespace std;
 #ifdef __FREEBSD__
-    const std::string gamer_starter = "/Gamer_OS/kernel/modules/gamer_starter.so";
+    const std::string gamer_starter = "startx";
+    const std::string gamer_services = "/Gamer_OS/kernel/modules/System_Services.so"
 #else
     const std::string gamer_starter = "/home/gamerpc/Gamer_OS/build/gamer_compositor";
+     const std::string gamer_services = "/home/gamerpc/Gamer_OS/build/System_Services.so";
+
 #endif
 std::string Get_Active_Time() {
     auto current_time = std::chrono::system_clock::now();
@@ -53,6 +56,7 @@ int main() {
   //  system("touch /root/.xinitrc");
  //   system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
     init_drivers();
+    system(gamer_services.c_str());
     system(gamer_starter.c_str());
  //   StartX(); Scrapped due to the lack of it within the compositor
     return 0;

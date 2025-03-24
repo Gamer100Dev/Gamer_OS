@@ -17,8 +17,14 @@
 // I will use ifdefs for FreeBSD but functionality may be reduced for other OSes
 // Thank you for your reading!
 // Coded by Gamer100_Dev
+// FreeBSD License copyright
 
+struct Users{
+    std::string root; // Main Root user | System level operations
+    // For user-level operations, goes under here if registered.
+};
 const std::string dir = "/Gamer_OS/kernel/modules/";
+const std::string profile_dat = "/Gamer_OS/profile/user.dat";
 const std::string Package_Commandi = "sudo pkg install "; // One of the things that I was talking about.
 #ifdef __FREEBSD__
 const std::string launchd = "/Gamer_OS/kernel/modules/launchd.so";
@@ -59,7 +65,6 @@ struct Packages {
     std::string qt5widgets = "qt5-widgets";
     std::vector<std::string> packagesToInstall;
 };
-
 bool isPackageInstalled(const std::string& packageName) {
     std::string command = "pkg info " + packageName;
 
