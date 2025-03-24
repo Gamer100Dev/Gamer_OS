@@ -303,7 +303,7 @@ void DrawDE(Display* display) {
 
     int textEdit_x = 880;
     int textEdit_y = 10;
-    int textEdit_w = 200;
+    int textEdit_w = 180;
     int textEdit_h = 20;
 
     int dock_x1;
