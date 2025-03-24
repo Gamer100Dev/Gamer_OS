@@ -3,14 +3,8 @@
 #include <thread>
 #include <cstdlib>
 using namespace std;
-#ifdef __FREEBSD__
-    const std::string gamer_starter = "startx";
-    const std::string gamer_services = "/Gamer_OS/kernel/modules/System_Services.so"
-#else
-    const std::string gamer_starter = "/home/gamerpc/Gamer_OS/build/gamer_compositor";
-     const std::string gamer_services = "/home/gamerpc/Gamer_OS/build/System_Services.so";
-
-#endif
+const std::string gamer_starter = "startx";
+const std::string gamer_services = "/Gamer_OS/kernel/modules/System_Services.so";
 std::string Get_Active_Time() {
     auto current_time = std::chrono::system_clock::now();
     std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
