@@ -342,6 +342,8 @@ void DrawDE(Display* display) {
     ktextedit->setGeometry(textEdit_x, textEdit_y, textEdit_w, textEdit_h);
     ktextedit->setPlainText(Get_Active_Time());
     ktextedit->setReadOnly(true);
+    ktextedit->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ktextedit->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     QTimer* timer = new QTimer(&mainWindow);
     QObject::connect(timer, &QTimer::timeout, [&]() {
         ktextedit->setPlainText(Get_Active_Time());
