@@ -266,6 +266,7 @@ bool LogIn(QString &username, QString &password){
         return 1;
     }
 }
+
 void DrawDE(Display* display) {
     std::cout << "LOG: Resolution for window is " << Reso << std::endl;
     int DockX; 

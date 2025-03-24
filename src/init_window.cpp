@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <cstdlib>
+using namespace std;
 #ifdef __FREEBSD__
     const std::string gamer_starter = "/Gamer_OS/kernel/modules/gamer_starter.so";
 #else
@@ -15,7 +16,16 @@ std::string Get_Active_Time() {
 
 void init_drivers() {
     std::cout << "LOG: Launching i915kms.ko " << Get_Active_Time() << std::endl;
-    system("kldload i915kms.ko");
+    bool driver_intel = system("kldload i915kms.ko");
+    if (!driver_intel){
+        // Assuming its either a virtual matchine
+        // TODO Add logic for other firmwares!
+
+        bool virtual_matchine_DRV = system("kldload vboxvideo");
+        if (virtual_matchine_DRV){
+            std::cout << "LOG: Success!" << std::endl;
+        }
+    }
 }
 
 void Start_DE() {
@@ -24,7 +34,7 @@ void Start_DE() {
     init_drivers();
 }
 
-void StartX() {
+void StartX() { // For FreeBSD
     std::cout << "LOG: Launching XServer at: " << Get_Active_Time() << std::endl;
     
     // Example custom startx command with options
@@ -44,6 +54,6 @@ int main() {
  //   system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
     init_drivers();
     system(gamer_starter.c_str());
- //   StartX();
+ //   StartX(); Scrapped due to the lack of it within the compositor
     return 0;
 }
