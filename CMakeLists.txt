@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.5)
-project(AquiumOS)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -35,9 +33,11 @@ endif()
 if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
     set(WAYLAND_PROTOCOLS_PATH "/usr/local/share/wayland-protocols")
     set(WLROOTS_INCLUDE_DIR "/usr/local/include/wlroots")
+    set(WLROOTS_LIB_DIR "/usr/local/lib")
 else()
     set(WAYLAND_PROTOCOLS_PATH "/usr/share/wayland-protocols")
     set(WLROOTS_INCLUDE_DIR "/usr/include/wlroots")
+    set(WLROOTS_LIB_DIR "/usr/lib")
 endif()
 
 # Ensure the protocol file exists
@@ -47,6 +47,7 @@ endif()
 
 # Include wlroots directory
 include_directories(${WLROOTS_INCLUDE_DIR})
+link_directories(${WLROOTS_LIB_DIR})
 
 # Define output file for Wayland protocol
 set(XDG_SHELL_PROTOCOL_OUTPUT "${CMAKE_BINARY_DIR}/xdg-shell-protocol.h")
@@ -86,12 +87,16 @@ add_executable(launchd.so ${launchd_SOURCES})
 add_executable(System_Services.so ${System_Services_SOURCES})
 
 # Link libraries individually for each executable
-target_link_libraries(gamer_compositor.so ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(startAQ.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(installer_dep.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(init_gameros.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(launchd.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-target_link_libraries(System_Services.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+foreach(target gamer_compositor.so startAQ.so installer_dep.so init_gameros.so launchd.so System_Services.so)
+    target_link_libraries(${target} ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+    target_include_directories(${target} PRIVATE ${WLROOTS_INCLUDE_DIR})
+endforeach()
+
+target_link_libraries(startAQ.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL)
+target_link_libraries(installer_dep.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL)
+target_link_libraries(init_gameros.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL)
+target_link_libraries(launchd.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL)
+target_link_libraries(System_Services.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL)
 
 # Add dependencies for gamer_compositor to ensure header generation
 add_dependencies(gamer_compositor.so generate_xdg_shell_protocol_header)
