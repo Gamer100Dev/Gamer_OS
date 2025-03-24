@@ -208,7 +208,7 @@ void calculateScaledPosition(int baseWidth, int baseHeight, int& x, int& y, int&
 int getMiddleBottomCenter(int& WidgetX, int& WidgetY) {
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
-    int x = screenGeometry.width() / 2;
+    int x = screenGeometry.width() / 4;
     int y = screenGeometry.height();
     WidgetX = x;
     WidgetY = y;
@@ -295,8 +295,8 @@ void DrawDE(Display* display) {
 
     int textEdit_x = 880;
     int textEdit_y = 10;
-    int textEdit_w = 141;
-    int textEdit_h = 15;
+    int textEdit_w = 200;
+    int textEdit_h = 5;
 
     int dock_x1;
     int dock_x2;
