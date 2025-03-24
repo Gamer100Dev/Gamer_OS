@@ -54,19 +54,29 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src
 )
 
-# Path to Wayland protocols
+# Specify the path to Wayland protocols
 set(WAYLAND_PROTOCOLS_PATH "/usr/share/wayland-protocols")
+
+# Ensure WAYLAND_SCANNER_EXECUTABLE points to the Wayland scanner tool
+find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner)
+
+# Ensure that the scanner tool is found
+if (NOT WAYLAND_SCANNER_EXECUTABLE)
+    message(FATAL_ERROR "wayland-scanner not found. Please install Wayland development libraries.")
+endif()
+
+# Specify where the generated file will go
+set(XDG_SHELL_PROTOCOL_OUTPUT "${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h")
 
 # Generate the xdg-shell-protocol.h file
 add_custom_command(
-    OUTPUT ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
+    OUTPUT ${XDG_SHELL_PROTOCOL_OUTPUT}
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} server-header
             ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
-            ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
+            ${XDG_SHELL_PROTOCOL_OUTPUT}
     DEPENDS ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
     COMMENT "Generating xdg-shell-protocol.h"
 )
-
 # Add a custom target to ensure the header file is generated
 add_custom_target(generate_xdg_shell_protocol_header ALL
     DEPENDS ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
