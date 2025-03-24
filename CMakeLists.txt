@@ -51,16 +51,25 @@ include_directories(${WLROOTS_INCLUDE_DIR})
 # Define output file for Wayland protocol
 set(XDG_SHELL_PROTOCOL_OUTPUT "${CMAKE_BINARY_DIR}/xdg-shell-protocol.h")
 
-# Manually run wayland-scanner before compiling
-execute_process(
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} server-header ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml ${XDG_SHELL_PROTOCOL_OUTPUT}
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+# Generate xdg-shell protocol header
+add_custom_command(
+    OUTPUT ${XDG_SHELL_PROTOCOL_OUTPUT}
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} server-header
+            ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
+            ${XDG_SHELL_PROTOCOL_OUTPUT}
+    DEPENDS ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
+    COMMENT "Generating xdg-shell-protocol.h"
+)
+
+# Add a custom target to ensure the header file is generated
+add_custom_target(generate_xdg_shell_protocol_header ALL
+    DEPENDS ${XDG_SHELL_PROTOCOL_OUTPUT}
 )
 
 # Include generated header
 include_directories(${CMAKE_BINARY_DIR})
 
-# Define source files
+# Define source files for each executable
 set(gamer_compositor_SOURCES src/gamer_compositor.c ${XDG_SHELL_PROTOCOL_OUTPUT})
 set(startAQ_SOURCES src/Window_Manager.cpp)
 set(installer_dep_SOURCES src/installer_dep.cpp)
@@ -76,10 +85,16 @@ add_executable(init_gameros.so ${init_gameros_SOURCES})
 add_executable(launchd.so ${launchd_SOURCES})
 add_executable(System_Services.so ${System_Services_SOURCES})
 
-# Link libraries
-foreach(target gamer_compositor.so startAQ.so installer_dep.so init_gameros.so launchd.so System_Services.so)
-    target_link_libraries(${target} Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
-endforeach()
+# Link libraries individually for each executable
+target_link_libraries(gamer_compositor.so ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+target_link_libraries(startAQ.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+target_link_libraries(installer_dep.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+target_link_libraries(init_gameros.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+target_link_libraries(launchd.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+target_link_libraries(System_Services.so Qt5::Widgets Qt5::Gui Qt5::Core X11 Xrandr Xcursor GLEW GL ${WLR_LIBRARIES} ${WAYLAND_LIBRARIES})
+
+# Add dependencies for gamer_compositor to ensure header generation
+add_dependencies(gamer_compositor.so generate_xdg_shell_protocol_header)
 
 # Set output suffix for FreeBSD compatibility
 set_target_properties(gamer_compositor.so startAQ.so installer_dep.so init_gameros.so launchd.so System_Services.so PROPERTIES SUFFIX ".so")
