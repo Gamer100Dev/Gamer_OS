@@ -266,6 +266,14 @@ bool LogIn(QString &username, QString &password){
         return 1;
     }
 }
+bool Sign_Out(){
+    bool Kill_suite = system("pkill X gamer_compositor");
+    if (Kill_suite){
+        return true;
+    } else {
+        return false;
+    }
+} // End DE and user session
 
 void DrawDE(Display* display) {
     std::cout << "LOG: Resolution for window is " << Reso << std::endl;
@@ -311,10 +319,11 @@ void DrawDE(Display* display) {
     calculateScaledPosition(baseWidth, baseHeight, textEdit_x, textEdit_y, textEdit_w, textEdit_h);
 
 
-    QPushButton* pushButton = new QPushButton("Search", &mainWindow);
+    QPushButton* pushButton = new QPushButton("Sign Out", &mainWindow);
     pushButton->setGeometry(button1_x, button1_y, button1_w, button1_h);
     QObject::connect(pushButton, &QPushButton::clicked, []() {
-        std::cout << "Search button clicked!" << std::endl;
+        std::cout << "LOG: Sign out button clicked!" << std::endl;
+        Sign_Out();
     });
 
     QPushButton* options_button = new QPushButton("Poweroff" , &mainWindow);
