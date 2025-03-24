@@ -58,12 +58,20 @@ include_directories(
 set(WAYLAND_PROTOCOLS_PATH "/usr/share/wayland-protocols")
 
 # Generate the xdg-shell-protocol.h file
+find_path(WAYLAND_PROTOCOLS_DIR stable/xdg-shell/xdg-shell.xml
+    PATHS /usr/share/wayland-protocols
+)
+
+if (NOT WAYLAND_PROTOCOLS_DIR)
+    message(FATAL_ERROR "xdg-shell.xml not found! Make sure wayland-protocols is installed.")
+endif()
+
 add_custom_command(
     OUTPUT ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} server-header
-            ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
+            ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml
             ${CMAKE_SOURCE_DIR}/src/xdg-shell-protocol.h
-    DEPENDS ${WAYLAND_PROTOCOLS_PATH}/stable/xdg-shell/xdg-shell.xml
+    DEPENDS ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml
     COMMENT "Generating xdg-shell-protocol.h"
 )
 
