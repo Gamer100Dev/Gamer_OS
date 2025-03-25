@@ -274,7 +274,15 @@ bool Sign_Out(){
         return false;
     }
 } // End DE and user session
-
+bool Run_App_Launcher(){
+    std::string Launch_Path_AppL = "/Gamer_OS/kernel/modules/App_Launcher.so"
+    bool Run_App = system(Launch_Path_AppL);
+    if (Run_App == true){
+        return true;
+    } else if (Run_App == false){
+        return false;
+    }
+}
 void DrawDE(Display* display) {
     std::cout << "LOG: Resolution for window is " << Reso << std::endl;
     int DockX; 
@@ -336,6 +344,7 @@ void DrawDE(Display* display) {
     pushButton_2->setGeometry(button2_x, button2_y, button2_w, button2_h);
     QObject::connect(pushButton_2, &QPushButton::clicked, []() {
         std::cout << "Apps button clicked!" << std::endl;
+        Run_App_Launcher();
     });
 
     QTextEdit* ktextedit = new QTextEdit(&mainWindow);

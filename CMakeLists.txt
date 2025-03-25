@@ -241,6 +241,26 @@ target_link_libraries(System_Services.so
     ${WLR_LIBRARIES}
     ${WAYLAND_LIBRARIES}
 )
-
 # Add compiler definitions for System_Services
 target_compile_definitions(System_Services.so PRIVATE DWLR_USE_UNSTABLE)
+set(LaunchD_App_SOURCES
+    src/app_search.cpp
+)
+
+# Executable for System_Services
+add_executable(App_Launcher.so ${LaunchD_App_SOURCES})
+
+# Link libraries for System_Services
+target_link_libraries(App_Launcher.so
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
+    X11
+    Xrandr
+    Xcursor
+    GLEW
+    GL
+    ${WLR_LIBRARIES}
+    ${WAYLAND_LIBRARIES}
+)
+target_compile_definitions(App_Launcher.so PRIVATE DWLR_USE_UNSTABLE)
