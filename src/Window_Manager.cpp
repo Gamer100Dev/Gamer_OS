@@ -276,7 +276,7 @@ bool Sign_Out(){
 } // End DE and user session
 bool Run_App_Launcher(){
     std::string Launch_Path_AppL = "/Gamer_OS/kernel/modules/App_Launcher.so";
-    bool Run_App = system(Launch_Path_AppL);
+    bool Run_App = system(Launch_Path_AppL.c_str());
     if (Run_App == true){
         return true;
     } else if (Run_App == false){
