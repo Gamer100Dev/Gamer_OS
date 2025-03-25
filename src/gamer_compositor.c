@@ -45,6 +45,7 @@ struct tinywl_server {
 	struct wlr_xdg_shell *xdg_shell;
 	struct wl_listener new_xdg_toplevel;
 	struct wl_listener new_xdg_popup;
+	struct wl_listener new_xdg_decoration;
 	struct wl_list toplevels;
 
 	struct wlr_cursor *cursor;
@@ -879,8 +880,6 @@ static void server_new_xdg_popup(struct wl_listener *listener, void *data) {
 	popup->destroy.notify = xdg_popup_destroy;
 	wl_signal_add(&xdg_popup->events.destroy, &popup->destroy);
 }
-struct wlr_xdg_decoration_manager_v1 *xdg_decoration_manager =
-    wlr_xdg_decoration_manager_v1_create(server->wl_display);
 
 
 static void handle_xdg_decoration(struct wl_listener *listener, void *data) {
@@ -889,9 +888,7 @@ static void handle_xdg_decoration(struct wl_listener *listener, void *data) {
         WLR_XDG_TOPLEVEL_DECORATION_V1_MODE_SERVER_SIDE);
 }
 
-struct wl_listener new_xdg_decoration = {};
-new_xdg_decoration.notify = handle_xdg_decoration;
-wl_signal_add(&xdg_decoration_manager->events.new_toplevel_decoration, &new_xdg_decoration);
+
 
 int main(int argc, char *argv[]) {
 	wlr_log_init(WLR_DEBUG, NULL);
@@ -918,6 +915,11 @@ int main(int argc, char *argv[]) {
     wlr_server_decoration_manager_create(server.wl_display);
 	wlr_server_decoration_manager_set_default_mode(server_decoration_manager,
     WLR_SERVER_DECORATION_MANAGER_MODE_SERVER);
+	struct wlr_xdg_decoration_manager_v1 *xdg_decoration_manager =
+    wlr_xdg_decoration_manager_v1_create(server.wl_display);
+	struct wl_listener *listener = &server->new_xdg_decoration;
+    listener->notify = handle_xdg_decoration;
+	wl_signal_add(&xdg_decoration_manager->events.new_toplevel_decoration, &new_xdg_decoration);
 	/* The Wayland display is managed by libwayland. It handles accepting
 	 * clients from the Unix socket, manging Wayland globals, and so on. */
 	server.wl_display = wl_display_create();
