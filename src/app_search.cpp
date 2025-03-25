@@ -25,11 +25,11 @@ int main(){
     char *argv[] = { nullptr };
     QApplication app(argc, argv);
     QMainWindow window;
-    window.setGeometry(0,0,600,300);
-    QTextEdit* text_box = new QTextEdit("",&window);    
-    text_box->setGeometry(10,10,100,100);
-    QPushButton* button_1 = new QPushButton ("Launch!",&window);
-    button_1->setGeometry(-3,0,50,50);
+    window.setGeometry(0, 0, 400, 600);
+    QTextEdit* text_box = new QTextEdit("", &window);
+    text_box->setGeometry(10, 10, 380, 40);
+    QPushButton* button_1 = new QPushButton("Launch!", &window);
+    button_1->setGeometry(150, 60, 100, 35);
 
     window.show();
     return app.exec();
