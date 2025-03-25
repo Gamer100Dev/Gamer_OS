@@ -877,7 +877,10 @@ static void server_new_xdg_popup(struct wl_listener *listener, void *data) {
 	popup->destroy.notify = xdg_popup_destroy;
 	wl_signal_add(&xdg_popup->events.destroy, &popup->destroy);
 }
-
+struct wlr_server_decoration_manager *server_decoration_manager = 
+    wlr_server_decoration_manager_create(server->wl_display);
+wlr_server_decoration_manager_set_default_mode(server_decoration_manager,
+    WLR_SERVER_DECORATION_MANAGER_MODE_SERVER);
 int main(int argc, char *argv[]) {
 	wlr_log_init(WLR_DEBUG, NULL);
 	char *startup_cmd = NULL;
