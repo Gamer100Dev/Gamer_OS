@@ -28,8 +28,8 @@ int main(){
     window.setGeometry(0,0,600,300);
     QTextEdit* text_box = new QTextEdit("",&window);
     textbox.setGeometry(10,10,100,100);
-    QPushButton* button_1 = new QTextButton("Launch!",&window);
-    button_1.setGeometry(-3,0,50,50);
+    QPushButton* button_1 = new QPushButton ("Launch!",&window);
+    button_1->setGeometry(-3,0,50,50);
 
     window.show();
     return app.exec();
