@@ -26,8 +26,8 @@ int main(){
     QApplication app(argc, argv);
     QMainWindow window;
     window.setGeometry(0,0,600,300);
-    QTextEdit* text_box = new QTextEdit("",&window);
-    textbox.setGeometry(10,10,100,100);
+    QTextEdit* text_box = new QTextEdit("",&window);    
+    text_box->setGeometry(10,10,100,100);
     QPushButton* button_1 = new QPushButton ("Launch!",&window);
     button_1->setGeometry(-3,0,50,50);
 
