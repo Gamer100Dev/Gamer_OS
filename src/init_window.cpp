@@ -3,7 +3,7 @@
 #include <thread>
 #include <cstdlib>
 using namespace std;
-const std::string gamer_starter = "startx";
+const std::string gamer_starter = "/Gamer_OS/kernel/modules/gamer_compositor -s /Gamer_OS/kernel/modules/startAQ.so";
 const std::string gamer_services = "/Gamer_OS/kernel/modules/System_Services.so";
 std::string Get_Active_Time() {
     auto current_time = std::chrono::system_clock::now();
