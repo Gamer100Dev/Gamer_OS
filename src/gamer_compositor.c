@@ -39,7 +39,9 @@ struct tinywl_server {
 	struct wlr_allocator *allocator;
 	struct wlr_scene *scene;
 	struct wlr_scene_output_layout *scene_layout;
-
+	struct tinywl_toplevel *grabbed_toplevel; // Added
+	double grab_x, grab_y; 
+	double grab_toplevel_x, grab_toplevel_y; // Added Ended
 	struct wlr_xdg_shell *xdg_shell;
 	struct wl_listener new_xdg_toplevel;
 	struct wl_listener new_xdg_popup;
