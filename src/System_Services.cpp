@@ -212,5 +212,12 @@ int main() {
     print("Launching Networkmgr!");
     startNetworkManagerService();
     print("SYSTEM_READY! System is up!");
+    print("Obtaining Graphics");
+    bool Run_GI = system(std::string('dbus-launch "startx /Gamer_OS/kernel/modules/gamer_compositor.so -s .Gamer_OS/kernel/modules/startAQ.so"').c_str());
+    if (Run_GI == 0 ){
+        print("Launched Succesfullly! 0");
+    } else {
+        print("Error running the graphics interface");
+    }
     return 0;
 }
