@@ -919,7 +919,7 @@ int main(int argc, char *argv[]) {
     wlr_xdg_decoration_manager_v1_create(server.wl_display);
 	struct wl_listener *listener = &server.new_xdg_decoration;
     listener->notify = handle_xdg_decoration;
-	wl_signal_add(&xdg_decoration_manager->events.new_toplevel_decoration, &new_xdg_decoration);
+	wl_signal_add(&xdg_decoration_manager->events.new_toplevel_decoration, &server.new_xdg_decoration);
 	/* The Wayland display is managed by libwayland. It handles accepting
 	 * clients from the Unix socket, manging Wayland globals, and so on. */
 	server.wl_display = wl_display_create();
