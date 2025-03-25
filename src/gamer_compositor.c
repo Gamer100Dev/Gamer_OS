@@ -877,6 +877,43 @@ static void server_new_xdg_popup(struct wl_listener *listener, void *data) {
 	popup->destroy.notify = xdg_popup_destroy;
 	wl_signal_add(&xdg_popup->events.destroy, &popup->destroy);
 }
+static void begin_grab(struct tinywl_server *server, struct tinywl_toplevel *toplevel, double sx, double sy) {
+    server->grabbed_toplevel = toplevel;
+    server->grab_x = sx;
+    server->grab_y = sy;
+    server->grab_window_x = toplevel->scene_tree->node.x;
+    server->grab_window_y = toplevel->scene_tree->node.y;
+}
+
+static void cursor_motion(struct wl_listener *listener, void *data) {
+    struct tinywl_server *server = wl_container_of(listener, server, cursor_motion);
+    struct wlr_pointer_motion_event *event = data;
+
+    wlr_cursor_move(server->cursor, event->device, event->delta_x, event->delta_y);
+
+    if (server->grabbed_toplevel) {
+        double new_x = server->grab_window_x + (server->cursor->x - server->grab_x);
+        double new_y = server->grab_window_y + (server->cursor->y - server->grab_y);
+        wlr_scene_node_set_position(&server->grabbed_toplevel->scene_tree->node, new_x, new_y);
+    }
+}
+
+static void cursor_button(struct wl_listener *listener, void *data) {
+    struct tinywl_server *server = wl_container_of(listener, server, cursor_button);
+    struct wlr_pointer_button_event *event = data;
+
+    if (event->state == WLR_BUTTON_PRESSED) {
+        struct wlr_surface *surface = NULL;
+        double sx, sy;
+        struct tinywl_toplevel *toplevel = desktop_toplevel_at(server, server->cursor->x, server->cursor->y, &surface, &sx, &sy);
+
+        if (toplevel) {
+            begin_grab(server, toplevel, sx, sy);
+        }
+    } else {
+        server->grabbed_toplevel = NULL; // Stop dragging on release
+    }
+}
 
 int main(int argc, char *argv[]) {
 	wlr_log_init(WLR_DEBUG, NULL);
