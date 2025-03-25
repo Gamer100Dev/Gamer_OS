@@ -917,7 +917,7 @@ int main(int argc, char *argv[]) {
     WLR_SERVER_DECORATION_MANAGER_MODE_SERVER);
 	struct wlr_xdg_decoration_manager_v1 *xdg_decoration_manager =
     wlr_xdg_decoration_manager_v1_create(server.wl_display);
-	struct wl_listener *listener = &server->new_xdg_decoration;
+	struct wl_listener *listener = &server.new_xdg_decoration;
     listener->notify = handle_xdg_decoration;
 	wl_signal_add(&xdg_decoration_manager->events.new_toplevel_decoration, &new_xdg_decoration);
 	/* The Wayland display is managed by libwayland. It handles accepting
