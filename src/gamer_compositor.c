@@ -901,7 +901,7 @@ int main(int argc, char *argv[]) {
 
 	struct tinywl_server server = {0};
 	struct wlr_server_decoration_manager *server_decoration_manager = 
-    wlr_server_decoration_manager_create(tinywl_server->wl_display);
+    wlr_server_decoration_manager_create(server->wl_display);
 	wlr_server_decoration_manager_set_default_mode(server_decoration_manager,
     WLR_SERVER_DECORATION_MANAGER_MODE_SERVER);
 	/* The Wayland display is managed by libwayland. It handles accepting
