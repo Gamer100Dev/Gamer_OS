@@ -50,8 +50,9 @@ int main() {
   //  system("touch /root/.xinitrc");
  //   system("echo /Gamer_OS/kernel/modules/startAQ.so >> /root/.xinitrc");
     init_drivers();
-    system(gamer_services.c_str());
     system(gamer_starter.c_str());
+    system(gamer_services.c_str());
+   
  //   StartX(); Scrapped due to the lack of it within the compositor
     return 0;
 }
