@@ -22,6 +22,7 @@
 #include <wlr/types/wlr_seat.h>
 #include <wlr/types/wlr_subcompositor.h>
 #include <wlr/types/wlr_xcursor_manager.h>
+#include <wlr/types/wlr_xdg_decoration_v1.h>
 #include <wlr/types/wlr_xdg_shell.h>
 #include <wlr/util/log.h>
 #include <xkbcommon/xkbcommon.h>
@@ -884,7 +885,7 @@ static void handle_xdg_decoration(struct wl_listener *listener, void *data) {
         WLR_XDG_TOPLEVEL_DECORATION_V1_MODE_SERVER_SIDE);
 }
 
-struct wl_listener new_xdg_decoration;
+struct wl_listener new_xdg_decoration = {};
 new_xdg_decoration.notify = handle_xdg_decoration;
 wl_signal_add(&xdg_decoration_manager->events.new_toplevel_decoration, &new_xdg_decoration);
 
