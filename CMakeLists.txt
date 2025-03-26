@@ -28,6 +28,7 @@ include_directories(
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(WAYLAND_SCANNER REQUIRED wayland-scanner)
 pkg_check_modules(WLR REQUIRED wlroots-0.18)
+pkg_check_modules(PKG REQUIRED libpkg)
 pkg_check_modules(WAYLAND REQUIRED wayland-server wayland-client xkbcommon)
 
 # Define wayland-scanner executable path
@@ -45,7 +46,8 @@ message(STATUS "WLR_INCLUDE_DIRS: ${WLR_INCLUDE_DIRS}")
 message(STATUS "WLR_LIBRARIES: ${WLR_LIBRARIES}")
 message(STATUS "WAYLAND_INCLUDE_DIRS: ${WAYLAND_INCLUDE_DIRS}")
 message(STATUS "WAYLAND_LIBRARIES: ${WAYLAND_LIBRARIES}")
-
+message(STATUS "PKG_INCLUDE_DIRS: ${PKG_INCLUDE_DIRS}")
+message(STATUS "PKG_LIBRARIES: ${PKG_LIBRARIES}")
 # Include directories
 include_directories(
     ${WAYLAND_SCANNER_INCLUDE_DIRS}
@@ -163,6 +165,7 @@ target_link_libraries(installer_dep.so
     Xcursor
     GLEW
     GL
+    ${PKG_LIBRARIES}  
     ${WLR_LIBRARIES}
     ${WAYLAND_LIBRARIES}
 )
@@ -247,10 +250,10 @@ set(LaunchD_App_SOURCES
     src/app_search.cpp
 )
 
-# Executable for System_Services
+# Executable for App_Launcher.so
 add_executable(App_Launcher.so ${LaunchD_App_SOURCES})
 
-# Link libraries for System_Services
+# Link libraries for App_Launcher.so
 target_link_libraries(App_Launcher.so
     Qt5::Widgets
     Qt5::Gui
