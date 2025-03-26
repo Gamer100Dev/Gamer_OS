@@ -24,13 +24,14 @@ int main(){
         bool CHECK_GAMEROS_SUBFS_EXIST = system(std::string("find /Gamer_OS").c_str());
         if (CHECK_GAMEROS_SUBFS_EXIST == 0){
             print(std::string("SUB_SYSTEM_KERNEL_FOLD FOUND! 0"));
-        } else {CHECK_GAMEROS_SUBFS_EXIST == 1}{
+        } else if (CHECK_GAMEROS_SUBFS_EXIST == 1){
             bool System_Creation_F1 = system(std::string("sudo mkdir -p /Gamer_OS/kernel/modules && sudo mkdir -p /Gamer_OS/kernel/assets && sudo mkdir -p /Gamer_OS/kernel/Applications").c_str());
             if (System_Creation_F1 == 0){
                 print(string("OS_F1: 0"));
             } // Made the sub folders
         }
     }
+    return 0;
     // TODO: Curl and get any packages: Future Assets,Sound 
     
 }
