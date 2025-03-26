@@ -9,7 +9,7 @@ std::string Get_Active_Time(){
     std::time_t current_time_t = std::chrono::system_clock::to_time_t(current_time);
     return std::ctime(&current_time_t);
 }
-void print(std::string& string){
+void print(std::string string){
     std::cout << "LOG: " << string << std::endl;
 }
 int main(){
