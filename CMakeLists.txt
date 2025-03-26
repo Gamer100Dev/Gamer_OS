@@ -28,7 +28,6 @@ include_directories(
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(WAYLAND_SCANNER REQUIRED wayland-scanner)
 pkg_check_modules(WLR REQUIRED wlroots-0.18)
-pkg_check_modules(PKG REQUIRED libpkg)
 pkg_check_modules(WAYLAND REQUIRED wayland-server wayland-client xkbcommon)
 
 # Define wayland-scanner executable path
@@ -47,12 +46,14 @@ message(STATUS "WLR_LIBRARIES: ${WLR_LIBRARIES}")
 message(STATUS "WAYLAND_INCLUDE_DIRS: ${WAYLAND_INCLUDE_DIRS}")
 message(STATUS "WAYLAND_LIBRARIES: ${WAYLAND_LIBRARIES}")
 message(STATUS "PKG_INCLUDE_DIRS: ${PKG_INCLUDE_DIRS}")
-message(STATUS "PKG_LIBRARIES: ${PKG_LIBRARIES}")
+find_library(PKG_LIBRARIES NAMES pkg HINTS /usr/local/lib)
+find_path(PKG_INCLUDE_DIRS NAMES pkg.h HINTS /usr/local/include)
 # Include directories
 include_directories(
     ${WAYLAND_SCANNER_INCLUDE_DIRS}
     ${WLR_INCLUDE_DIRS}
     ${WAYLAND_INCLUDE_DIRS}
+    ${PKG_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR}/src
 )
 
