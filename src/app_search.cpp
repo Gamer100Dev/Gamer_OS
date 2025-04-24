@@ -7,80 +7,49 @@
 #include <pwd.h>
 #include <QApplication>
 #include <QMainWindow>
-#include <QVBoxLayout>
-#include <QScrollBar>
 #include <QPushButton>
-#include <QString>
-#include <QTimer>
 #include <QTextEdit>
-#include <QOpenGLWidget>
-#include <chrono>
-#include <QDockWidget>
-#include <QScreen>
-#include <QTime>
-#include <QDebug>
-#include <QMouseEvent>
+#include <QString>
+
 using namespace std;
-void print(std::string& string){
+
+void print(std::string string) {
     std::cout << "LOG: " << string << std::endl;
 }
-int Launch_App(std::string& app_name){
+
+int Launch_App(std::string& app_name) {
     bool App_Launched_so = system(app_name.c_str());
-    if (App_Launched_so == 0){
+    if (App_Launched_so == 1) {
+        print("Error while running app! 1");
         print("Ran Successfully! 0 ");
     } else {
-        print("Error while running app! 1");
+        print("Ran Successfully! 0 ");
     }
+    return 0;
 }
-class DraggableWindow : public QMainWindow {
-    Q_OBJECT
 
-public:
-    DraggableWindow(QWidget* parent = nullptr) : QMainWindow(parent) {
-        this->setGeometry(50, 50, 400, 600);
-        QTextEdit* text_box = new QTextEdit("", this);
-        text_box->setGeometry(10, 10, 380, 40);
-        QPushButton* button_1 = new QPushButton("Launch!", this);
-        button_1->setGeometry(150, 60, 100, 35);
-
-        QObject::connect(button_1, &QPushButton::clicked, [&, text_box]() {
-            std::string app_name = text_box->toPlainText().toStdString();
-            Launch_App(app_name);
-        });
-
-        m_isDragging = false;
-        m_dragStartPos = QPoint(0, 0);
-    }
-
-protected:
-    void mousePressEvent(QMouseEvent* event) override {
-        if (event->button() == Qt::LeftButton) {
-            m_isDragging = true;
-            m_dragStartPos = event->globalPos() - this->frameGeometry().topLeft();
-        }
-    }
-
-    void mouseMoveEvent(QMouseEvent* event) override {
-        if (m_isDragging) {
-            this->move(event->globalPos() - m_dragStartPos);
-        }
-    }
-
-    void mouseReleaseEvent(QMouseEvent* event) override {
-        if (event->button() == Qt::LeftButton) {
-            m_isDragging = false;
-        }
-    }
-
-private:
-    bool m_isDragging;
-    QPoint m_dragStartPos;
-};
-int main(){
-    int argc = 0;
-    char *argv[] = { nullptr };
+int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    DraggableWindow window;
-    window.show();
+    
+
+    QMainWindow mainWindow;
+    mainWindow.setGeometry(50, 50, 400, 200);
+
+  
+    QTextEdit* text_box = new QTextEdit("", &mainWindow);
+    text_box->setGeometry(10, 10, 380, 70);
+
+   
+    QPushButton* button_1 = new QPushButton("Launch!", &mainWindow);
+    button_1->setGeometry(150, 100, 99, 50);
+
+    QObject::connect(button_1, &QPushButton::clicked, [&, text_box]() {
+        std::string app_name = text_box->toPlainText().toStdString();
+        Launch_App(app_name);
+    });
+
+  
+    mainWindow.show();
+    
     return app.exec();
 }

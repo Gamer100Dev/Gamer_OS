@@ -20,6 +20,7 @@
 #include <X11/Xcursor/Xcursor.h>
 #include <GL/gl.h>
 #include <iomanip>
+#include <thread>
 #include <vector>
 #include <cstring>
 #include <unistd.h>
@@ -275,13 +276,13 @@ bool Sign_Out(){
     }
 } // End DE and user session
 bool Run_App_Launcher(){
-    std::string Launch_Path_AppL = "/Gamer_OS/kernel/modules/App_Launcher.so";
-    bool Run_App = system(Launch_Path_AppL.c_str());
-    if (Run_App == true){
-        return true;
-    } else if (Run_App == false){
-        return false;
-    }
+    std::string Launch_Path_AppL = "/Gamer_OS/kernel/modules/launchd.so --run /Gamer_OS/kernel/modules/App_Launcher.so";
+    std::thread Run_App_Launcher([Launch_Path_AppL](){
+        system(Launch_Path_AppL.c_str());
+    });
+
+    Run_App_Launcher.detach();
+    return true;
 }
 void DrawDE(Display* display) {
     std::cout << "LOG: Resolution for window is " << Reso << std::endl;

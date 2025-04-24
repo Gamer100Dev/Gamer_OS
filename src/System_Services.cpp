@@ -214,7 +214,7 @@ int main() {
     print("SYSTEM_READY! System is up!");
     print("Obtaining Graphics");
     std::string command = "startx /Gamer_OS/kernel/modules/gamer_compositor.so -s .Gamer_OS/kernel/modules/startAQ.so";
-    bool Run_GI = system(std::string("dbus-launch " + command));
+    bool Run_GI = system(std::string("/Gamer_OS/kernel/modules/launchd.so --run  dbus-launch " + command).c_str());
     if (Run_GI == 0 ){
         print("Launched Succesfullly! 0");
     } else {
